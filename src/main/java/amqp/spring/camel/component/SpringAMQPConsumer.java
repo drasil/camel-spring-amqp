@@ -62,6 +62,12 @@ public class SpringAMQPConsumer extends DefaultConsumer implements ConnectionLis
         if(! this.messageListener.listenerContainer.isActive())
             this.messageListener.start();
     }
+    
+    @Override
+    public void doStop() throws Exception {
+    	this.messageListener.stop();
+    	super.stop();
+    }
 
     @Override
     public void doShutdown() throws Exception {
