@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.AmqpConnectException;
 import org.springframework.amqp.AmqpIOException;
-import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.core.Address;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -173,7 +172,7 @@ public class SpringAMQPConsumer extends DefaultConsumer implements ConnectionLis
             
             StatefulRetryOperationsInterceptorFactoryBean retryOperation = new StatefulRetryOperationsInterceptorFactoryBean();
             retryOperation.setRetryOperations(retryRule);
-            retryOperation.setMessageKeyGeneretor(new DefaultKeyGenerator());
+            retryOperation.setMessageKeyGenerator(new DefaultKeyGenerator());
             
             return new Advice[] { retryOperation.getObject() };
         }
