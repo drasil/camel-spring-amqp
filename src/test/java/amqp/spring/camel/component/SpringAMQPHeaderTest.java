@@ -35,6 +35,7 @@ public class SpringAMQPHeaderTest {
         camelMessage.setHeader(SpringAMQPHeader.PRIORITY, 1);
         camelMessage.setHeader(SpringAMQPHeader.REPLY_TO, "BuzzSaw");
         camelMessage.setHeader(SpringAMQPHeader.CORRELATION_ID, "corrId");
+        camelMessage.setHeader(SpringAMQPHeader.DELIVERY_MODE, null);
         
         Exchange exchange = new DefaultExchange(new DefaultCamelContext());
         exchange.setIn(camelMessage);

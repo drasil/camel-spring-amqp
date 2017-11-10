@@ -4,9 +4,10 @@
 
 package amqp.spring.camel.component;
 
+import java.util.Map;
+
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageDeliveryMode;
-import java.util.Map;
 
 public class SpringAMQPHeader {
     // The (settable) AMQP Basic Properties
@@ -57,7 +58,8 @@ public class SpringAMQPHeader {
                         msg.getMessageProperties().setReplyTo(headerValueString);
                         break;
                     case DELIVERY_MODE:
-                        msg.getMessageProperties().setDeliveryMode(MessageDeliveryMode.fromInt(Integer.parseInt(headerValueString)));
+                        MessageDeliveryMode deliveryMode = headerValueString != null ? MessageDeliveryMode.fromInt(Integer.parseInt(headerValueString)) : null;
+                        msg.getMessageProperties().setDeliveryMode(deliveryMode);
                         break;
                     case TYPE:
                         msg.getMessageProperties().setType(headerValueString);
