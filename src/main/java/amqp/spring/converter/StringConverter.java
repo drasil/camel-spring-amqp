@@ -77,8 +77,8 @@ public class StringConverter extends AbstractMessageConverter {
         try {
             return new String(body, messageEncoding);
         } catch (UnsupportedEncodingException ex) {
-            LOG.error("Cannot dencode strings as {}", this.encoding, ex);
-            throw new MessageConversionException("Cannot dencode strings as "+this.encoding, ex);
+            LOG.error("Cannot decode strings as {}", this.encoding, ex);
+            throw new MessageConversionException("Cannot decode strings as "+this.encoding, ex);
         }
     }
 }
