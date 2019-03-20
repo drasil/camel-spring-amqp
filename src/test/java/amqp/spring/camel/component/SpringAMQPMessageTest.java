@@ -3,6 +3,7 @@
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 package amqp.spring.camel.component;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -18,8 +19,9 @@ import org.springframework.amqp.support.converter.MessageConverter;
 public class SpringAMQPMessageTest {
     @Test
     public void testExchangePattern() throws Exception {
-        org.apache.camel.Message camelMessage = new DefaultMessage();
-        Exchange exchange = new DefaultExchange(new DefaultCamelContext(), ExchangePattern.InOut);
+        CamelContext context = new DefaultCamelContext();
+        org.apache.camel.Message camelMessage = new DefaultMessage(context);
+        Exchange exchange = new DefaultExchange(context, ExchangePattern.InOut);
         exchange.setIn(camelMessage);
         
         MessageProperties properties = new MessageProperties();
@@ -38,20 +40,21 @@ public class SpringAMQPMessageTest {
         properties.setHeader("NotSecret", "Popcorn");
         org.springframework.amqp.core.Message message = new org.springframework.amqp.core.Message(body.getBytes(), properties);
         
-        SpringAMQPMessage camelMessage = SpringAMQPMessage.fromAMQPMessage(msgConverter, message);
+        SpringAMQPMessage camelMessage = SpringAMQPMessage.fromAMQPMessage(new DefaultCamelContext(), msgConverter, message);
         Assert.assertEquals(body, camelMessage.getBody(String.class));
         Assert.assertEquals("Popcorn", camelMessage.getHeader("NotSecret"));
     }
     
     @Test
     public void toAMQP() throws Exception {
+        CamelContext context = new DefaultCamelContext();
         MessageConverter msgConverter = new StringMessageConverter();
         
-        SpringAMQPMessage camelMessage = new SpringAMQPMessage();
+        SpringAMQPMessage camelMessage = new SpringAMQPMessage(context);
         camelMessage.setBody("Test Message 2");
         camelMessage.setHeader("Secret", "My Secret");
         
-        Exchange exchange = new DefaultExchange(new DefaultCamelContext());
+        Exchange exchange = new DefaultExchange(context);
         exchange.setIn(camelMessage);
         
         org.springframework.amqp.core.Message message = camelMessage.toAMQPMessage(msgConverter);

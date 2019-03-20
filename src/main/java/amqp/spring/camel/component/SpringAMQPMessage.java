@@ -4,6 +4,7 @@
 
 package amqp.spring.camel.component;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.impl.DefaultMessage;
 import org.slf4j.Logger;
@@ -20,22 +21,22 @@ public class SpringAMQPMessage extends DefaultMessage {
     public static final String EXCHANGE_PATTERN = "CamelExchangePattern";
     public static final String IS_EXCEPTION_CAUGHT = "IsCamelExceptionCaught";
         
-    public SpringAMQPMessage() {
-        super();
+    public SpringAMQPMessage(CamelContext context) {
+        super(context);
     }
 
     public SpringAMQPMessage(org.apache.camel.Message source) {
-        super();
-        if(source != null) copyFrom(source);
+        super(source.getExchange().getContext());
+        copyFrom(source);
     }
 
-    public static SpringAMQPMessage fromAMQPMessage(MessageConverter msgConverter, org.springframework.amqp.core.Message amqpMessage) {
+    public static SpringAMQPMessage fromAMQPMessage(CamelContext context, MessageConverter msgConverter, org.springframework.amqp.core.Message amqpMessage) {
         if(amqpMessage == null) {
             LOG.debug("Received NULL AMQP Message, returning null");
             return null;
         }
         
-        SpringAMQPMessage message = new SpringAMQPMessage();
+        SpringAMQPMessage message = new SpringAMQPMessage(context);
         
         //Restore the body based on the message converter provided
         if(amqpMessage.getBody() == null || amqpMessage.getBody().length == 0) {

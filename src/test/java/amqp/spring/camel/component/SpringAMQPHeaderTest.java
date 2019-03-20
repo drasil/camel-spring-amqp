@@ -3,6 +3,7 @@
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 package amqp.spring.camel.component;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.DefaultExchange;
@@ -21,7 +22,7 @@ public class SpringAMQPHeaderTest {
         message.getMessageProperties().setReplyTo("BuzzSaw");
         message.getMessageProperties().setCorrelationIdString("corrId");
         
-        SpringAMQPMessage camelMessage = SpringAMQPHeader.setBasicPropertiesToHeaders(new SpringAMQPMessage(), message);
+        SpringAMQPMessage camelMessage = SpringAMQPHeader.setBasicPropertiesToHeaders(new SpringAMQPMessage(new DefaultCamelContext()), message);
         Assert.assertNull(camelMessage.getHeader("NotSecret"));
         Assert.assertEquals(1, camelMessage.getHeader(SpringAMQPHeader.PRIORITY));
         Assert.assertEquals("BuzzSaw", camelMessage.getHeader(SpringAMQPHeader.REPLY_TO));
@@ -30,14 +31,15 @@ public class SpringAMQPHeaderTest {
     
     @Test
     public void toBasicProperties() throws Exception {
-        SpringAMQPMessage camelMessage = new SpringAMQPMessage();
+        CamelContext context = new DefaultCamelContext();
+        SpringAMQPMessage camelMessage = new SpringAMQPMessage(context);
         camelMessage.setHeader("Secret", "My Secret");
         camelMessage.setHeader(SpringAMQPHeader.PRIORITY, 1);
         camelMessage.setHeader(SpringAMQPHeader.REPLY_TO, "BuzzSaw");
         camelMessage.setHeader(SpringAMQPHeader.CORRELATION_ID, "corrId");
         camelMessage.setHeader(SpringAMQPHeader.DELIVERY_MODE, null);
         
-        Exchange exchange = new DefaultExchange(new DefaultCamelContext());
+        Exchange exchange = new DefaultExchange(context);
         exchange.setIn(camelMessage);
         
         Message message = new Message(new byte[]{}, new MessageProperties());
@@ -55,18 +57,19 @@ public class SpringAMQPHeaderTest {
         org.springframework.amqp.core.Message message = new Message(new byte[]{}, properties);
         message.getMessageProperties().setReplyTo("BuzzSaw");
         
-        SpringAMQPMessage camelMessage = SpringAMQPHeader.copyHeaders(new SpringAMQPMessage(), message.getMessageProperties().getHeaders());
+        SpringAMQPMessage camelMessage = SpringAMQPHeader.copyHeaders(new SpringAMQPMessage(new DefaultCamelContext()), message.getMessageProperties().getHeaders());
         Assert.assertEquals("Popcorn", camelMessage.getHeader("NotSecret"));
         Assert.assertNull(camelMessage.getHeader(SpringAMQPHeader.REPLY_TO));
     }
     
     @Test
     public void copyCamelHeaders() throws Exception {
-        SpringAMQPMessage camelMessage = new SpringAMQPMessage();
+        CamelContext context = new DefaultCamelContext();
+        SpringAMQPMessage camelMessage = new SpringAMQPMessage(context);
         camelMessage.setHeader("Secret", "My Secret");
         camelMessage.setHeader(SpringAMQPHeader.REPLY_TO, "BuzzSaw");
         
-        Exchange exchange = new DefaultExchange(new DefaultCamelContext());
+        Exchange exchange = new DefaultExchange(context);
         exchange.setIn(camelMessage);
         
         Message message = new Message(new byte[]{}, new MessageProperties());
