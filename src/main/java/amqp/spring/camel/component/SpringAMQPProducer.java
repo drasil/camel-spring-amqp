@@ -8,7 +8,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.RejectedExecutionException;
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.Exchange;
-import org.apache.camel.ServicePoolAware;
 import org.apache.camel.impl.DefaultAsyncProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +18,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.amqp.support.converter.SimpleMessageConverter;
 
-public class SpringAMQPProducer extends DefaultAsyncProducer implements ServicePoolAware {
+public class SpringAMQPProducer extends DefaultAsyncProducer {
     private static transient final Logger LOG = LoggerFactory.getLogger(SpringAMQPProducer.class);
     
     private final SpringAMQPEndpoint endpoint;
@@ -28,6 +27,11 @@ public class SpringAMQPProducer extends DefaultAsyncProducer implements ServiceP
     public SpringAMQPProducer(SpringAMQPEndpoint endpoint) {
         super(endpoint);
         this.endpoint = endpoint;
+    }
+    
+    @Override
+    public boolean isSingleton() {
+        return true;
     }
 
     @Override
