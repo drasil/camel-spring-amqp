@@ -61,16 +61,15 @@ public class ContrivedLoadTest {
         Assert.assertEquals(messageCount, received);
         //Assuming 1 second delay per message, elapsed time shouldn't exceed the number of messages sent 
         //divided by the number of messages that can be simultaneously consumed.
-        if( elapsedTime >= (messageCount / (double) maxPoolSize) + 1) {
-            LOG.warn(String.format("Possible performance issue: %d messages took %f seconds with %d consumers", messageCount, elapsedTime, maxPoolSize));
-        }
+        Assert.assertTrue(String.format("Possible performance issue: %d messages took %f seconds with %d consumers", messageCount, elapsedTime, maxPoolSize),
+                elapsedTime >= (messageCount / (double) maxPoolSize) + 1);
     }
+    
     @Test
     public void testAsynchronous() throws Exception {
         final int messageCount = 1000;
         int received = 0;
         List<Future<String>> futures = new ArrayList<>();
-        
         long startTime = System.currentTimeMillis();
         for(int i=0; i < messageCount; ++i)
             futures.add(this.template.asyncRequestBody("direct:sync", "HELLO WORLD", String.class));
