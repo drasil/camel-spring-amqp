@@ -62,7 +62,7 @@ public class ContrivedLoadTest {
         //Assuming 1 second delay per message, elapsed time shouldn't exceed the number of messages sent 
         //divided by the number of messages that can be simultaneously consumed.
         Assert.assertTrue(String.format("Possible performance issue: %d messages took %f seconds with %d consumers", messageCount, elapsedTime, maxPoolSize),
-                elapsedTime >= (messageCount / (double) maxPoolSize) + 1);
+                elapsedTime < (messageCount / (double) maxPoolSize) + 1);
     }
     
     @Test
