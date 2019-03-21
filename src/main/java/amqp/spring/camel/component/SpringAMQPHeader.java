@@ -40,7 +40,6 @@ public class SpringAMQPHeader {
                         msg.getMessageProperties().setMessageId(headerValueString);
                         break;
                     case CORRELATION_ID:
-                        byte[] correlationId = headerValueString != null ? headerValueString.getBytes() : null;
                         msg.getMessageProperties().setCorrelationIdString(headerValueString);
                         break;
                     case APP_ID:
