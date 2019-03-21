@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import org.apache.camel.CamelContext;
 import org.apache.camel.EndpointInject;
-import org.apache.camel.Exchange;
 import org.apache.camel.Handler;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -67,7 +66,7 @@ public class SpringXMLTest {
     }
     
     @Handler
-    public void handle(Exchange exchange) {
-        exchange.getOut().setBody("RESPONSE");
+    public String handle(String body) {
+        return "RESPONSE";
     }
 }

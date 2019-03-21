@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.concurrent.*;
 import javax.annotation.Resource;
 import org.apache.camel.CamelContext;
-import org.apache.camel.Exchange;
 import org.apache.camel.Handler;
 import org.apache.camel.ProducerTemplate;
 import org.junit.Assert;
@@ -96,13 +95,13 @@ public class ContrivedLoadTest {
     }
     
     @Handler
-    public void handle(Exchange exchange) {
+    public String handle(String body) {
         try {
             Thread.sleep(1000);
-            exchange.getOut().setBody("RESPONSE");
         } catch(InterruptedException e) {
             LOG.error("Error when attempting to sleep in handler", e);
         }
+        return "RESPONSE";
     }
     
     private static class SynchronousRequestor implements Callable<String> {
