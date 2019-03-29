@@ -44,7 +44,7 @@ public class SpringAMQPMessage extends DefaultMessage {
         } else {
             if(LOG.isTraceEnabled()) {
                 String asText = new String(amqpMessage.getBody());
-                LOG.trace("Translating From AMQP Message: "+asText);
+                LOG.trace("Translating from AMQP message: "+asText+", "+amqpMessage.getMessageProperties());
             }
             
             message.setBody(msgConverter.fromMessage(amqpMessage));
@@ -77,7 +77,7 @@ public class SpringAMQPMessage extends DefaultMessage {
             
             if(LOG.isTraceEnabled()) {
                 String asText = new String(amqpMessage.getBody());
-                LOG.trace("Translating To AMQP Message: "+asText);
+                LOG.trace("Translating to AMQP message: "+asText+", "+amqpMessage.getMessageProperties());
             }
         } else {
             amqpMessage = new Message(new byte[]{}, properties);
