@@ -78,12 +78,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Need to stay with Camel 2.21 because version 2.22 requires Spring 5 -->
-        <org.apache.camel.version>2.21.5</org.apache.camel.version>
-        <!-- Need to stay with Spring-AMQP 1.7.x because version 2.0 requires Spring 5.0.x -->
-        <org.springframework.amqp.version>1.7.12.RELEASE</org.springframework.amqp.version>
-        <!-- Keep this in line with the versions referenced by Camel and Spring-AMQP versions in use (4.3.20 and 4.3.22) -->
-        <org.springframework.version>4.3.22.RELEASE</org.springframework.version>
+        <org.apache.camel.version>2.22.3</org.apache.camel.version>
+        <org.springframework.amqp.version>2.0.11.RELEASE</org.springframework.amqp.version>
+        <!-- Keep this in line with the versions referenced by Camel and Spring-AMQP versions in use (5.0.10 and 5.0.12) -->
+        <org.springframework.version>5.0.12.RELEASE</org.springframework.version>
     </properties>
 
     <dependencies>

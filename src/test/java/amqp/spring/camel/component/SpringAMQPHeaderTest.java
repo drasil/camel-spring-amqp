@@ -20,7 +20,7 @@ public class SpringAMQPHeaderTest {
         org.springframework.amqp.core.Message message = new Message(new byte[]{}, properties);
         message.getMessageProperties().setPriority(1);
         message.getMessageProperties().setReplyTo("BuzzSaw");
-        message.getMessageProperties().setCorrelationIdString("corrId");
+        message.getMessageProperties().setCorrelationId("corrId");
         
         SpringAMQPMessage camelMessage = SpringAMQPHeader.setBasicPropertiesToHeaders(new SpringAMQPMessage(new DefaultCamelContext()), message);
         Assert.assertNull(camelMessage.getHeader("NotSecret"));
@@ -47,7 +47,7 @@ public class SpringAMQPHeaderTest {
         Assert.assertNull(message.getMessageProperties().getHeaders().get("Secret"));
         Assert.assertEquals(Integer.valueOf(1), message.getMessageProperties().getPriority());
         Assert.assertEquals("BuzzSaw", message.getMessageProperties().getReplyTo());
-        Assert.assertEquals("corrId", message.getMessageProperties().getCorrelationIdString());
+        Assert.assertEquals("corrId", message.getMessageProperties().getCorrelationId());
     }
     
     @Test

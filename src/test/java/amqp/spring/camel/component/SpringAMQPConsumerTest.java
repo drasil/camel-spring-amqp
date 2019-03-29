@@ -38,7 +38,7 @@ public class SpringAMQPConsumerTest extends CamelTestSupport {
         amqpConsumer.start();
     }
     
-    @Test 
+    @Test
     public void disconnectConsumer() throws Exception {
         Processor defaultProcessor = new Processor() {
             @Override
@@ -193,6 +193,9 @@ public class SpringAMQPConsumerTest extends CamelTestSupport {
         RabbitTemplate amqpTemplate = new RabbitTemplate(factory);
         //The JSON converter stresses marshalling more than the default converter
         amqpTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
+        //FIXME: Without the following statement, i.e. when direct reply-to is used, the testHandleException() test fails.
+        //       The different behavor of direct reply-to and temporary reply queues seems to be a mistake in spring-amqp.
+        amqpTemplate.setUseTemporaryReplyQueues(true);
         SpringAMQPComponent amqpComponent = new SpringAMQPComponent(factory);
         
         Map<String, AmqpTemplate> templateMap = new HashMap<>(1);
