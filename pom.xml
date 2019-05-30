@@ -78,10 +78,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <org.apache.camel.version>2.23.1</org.apache.camel.version>
-        <org.springframework.amqp.version>2.1.4.RELEASE</org.springframework.amqp.version>
-        <!-- Keep this in line with the versions referenced by Camel and Spring-AMQP versions in use (5.1.2 and 5.1.5) -->
-        <org.springframework.version>5.1.5.RELEASE</org.springframework.version>
+        <org.apache.camel.version>2.23.2</org.apache.camel.version>
+        <org.springframework.amqp.version>2.1.6.RELEASE</org.springframework.amqp.version>
+        <!-- Keep this in line with the versions referenced by Camel and Spring-AMQP versions in use (5.1.2 and 5.1.6) -->
+        <org.springframework.version>5.1.6.RELEASE</org.springframework.version>
     </properties>
 
     <dependencies>
@@ -195,7 +195,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -226,7 +226,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
