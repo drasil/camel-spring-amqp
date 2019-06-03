@@ -14,7 +14,7 @@
     
     <groupId>cz.drasil</groupId>
     <artifactId>camel-spring-amqp</artifactId>
-    <version>1.7.1</version>
+    <version>1.7.2</version>
     <packaging>jar</packaging>
 
     <name>Camel :: Spring-AMQP</name>
