@@ -21,6 +21,7 @@ public class XStreamConverterTest {
         
         MessageConverter converter = new XStreamConverter();
         ((XStreamConverter) converter).setEncoding("UTF-8");
+        ((XStreamConverter) converter).setAllowedTypes(new String[] {"amqp.spring.converter.XStreamConverterTest$TestObject"});
         Message amqpMessage = converter.toMessage(testObject, messageProperties);
         Assert.assertEquals("{\"amqp.spring.converter.XStreamConverterTest_-TestObject\":{\"value\":\"TESTING\"}}", new String(amqpMessage.getBody()));
 

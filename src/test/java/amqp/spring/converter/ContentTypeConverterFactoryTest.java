@@ -43,7 +43,9 @@ public class ContentTypeConverterFactoryTest {
         stringConverter.setContentType("application/xml");
         
         ContentTypeConverterFactory converter = new ContentTypeConverterFactory();
-        converter.getConverters().put("application/json", new XStreamConverter());
+        XStreamConverter xStreamConverter = new XStreamConverter();
+        xStreamConverter.setAllowedTypes(new String[] {"amqp.spring.converter.ContentTypeConverterFactoryTest$TestObject"});
+        converter.getConverters().put("application/json", xStreamConverter);
         converter.getConverters().put("application/xml", new StringConverter());
         converter.setDefaultContentType("application/json");
         converter.setFallbackConverter(new StringConverter());

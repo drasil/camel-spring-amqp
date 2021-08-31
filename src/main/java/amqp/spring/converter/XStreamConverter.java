@@ -31,6 +31,7 @@ public class XStreamConverter extends AbstractMessageConverter {
     private static transient final Logger LOG = LoggerFactory.getLogger(XStreamConverter.class);
     
     protected String encoding = "UTF-8";
+    protected String[] allowedTypes = new String[0];
     protected ClassMapper classMapper;
     protected XStream objectMapper;
     protected MappedXMLOutputFactory outputFactory;
@@ -43,6 +44,18 @@ public class XStreamConverter extends AbstractMessageConverter {
         this.outputFactory = new MappedXMLOutputFactory(nstjsons);
         this.inputFactory = new MappedXMLInputFactory(nstjsons);
         this.objectMapper = new XStream();
+    }
+    
+    public String[] getAllowedTypes() {
+        return allowedTypes;
+    }
+    
+    /**
+     * Adds specified types to the whitelist of types considered safe by XStream
+     */
+    public void setAllowedTypes(String[] allowedTypes) {
+        this.objectMapper.allowTypes(allowedTypes);
+        this.allowedTypes = allowedTypes;
     }
 
     public String getEncoding() {
