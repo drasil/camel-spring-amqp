@@ -164,7 +164,7 @@ public class SpringAMQPProducer extends DefaultAsyncProducer {
                             exchange.setException(new RuntimeException(caughtObject.toString()));
                         }
                     } else {
-                        exchange.setOut(camelResponse);
+                        exchange.setMessage(camelResponse);
                     }
                 } else {
                     LOG.debug("Synchronous send for exchange {}", exchange.getExchangeId());

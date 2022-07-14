@@ -78,10 +78,10 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <org.apache.camel.version>2.24.0</org.apache.camel.version>
-        <org.springframework.amqp.version>2.1.6.RELEASE</org.springframework.amqp.version>
-        <!-- Keep this in line with the versions referenced by Camel and Spring-AMQP versions in use (5.1.6 and 5.1.6) -->
-        <org.springframework.version>5.1.6.RELEASE</org.springframework.version>
+        <org.apache.camel.version>2.25.4</org.apache.camel.version>
+        <org.springframework.amqp.version>2.1.18.RELEASE</org.springframework.amqp.version>
+        <!-- Keep this in line with the versions referenced by Camel and Spring-AMQP versions in use (5.1.20 and 5.1.18) -->
+        <org.springframework.version>5.1.20.RELEASE</org.springframework.version>
     </properties>
 
     <dependencies>

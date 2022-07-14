@@ -211,7 +211,7 @@ public class SpringAMQPConsumer extends DefaultConsumer implements ConnectionLis
             //Send a reply if one was requested
             Address replyToAddress = amqpMessage.getMessageProperties().getReplyToAddress();
             if(replyToAddress != null && endpoint.isAutoReply()) {
-                org.apache.camel.Message outMessage = exchange.getOut();
+                org.apache.camel.Message outMessage = exchange.getMessage();
                 SpringAMQPMessage replyMessage = new SpringAMQPMessage(outMessage);
 
                 // Camel exchange will contain a non-null exception if an unhandled exception has occurred,
@@ -228,7 +228,7 @@ public class SpringAMQPConsumer extends DefaultConsumer implements ConnectionLis
                     replyMessage.setBody(exchange.getProperty(Exchange.EXCEPTION_CAUGHT));
                 }
 
-                exchange.setOut(replyMessage); //Swap out the outbound message
+                exchange.setMessage(replyMessage); //Swap out the outbound message
 
                 try {
                     endpoint.getAmqpTemplate().send(replyToAddress.getExchangeName(), replyToAddress.getRoutingKey(), replyMessage.toAMQPMessage(msgConverter));
