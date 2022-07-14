@@ -8,7 +8,6 @@ import java.util.Map;
 import org.apache.camel.*;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.test.junit4.CamelTestSupport;
 import org.junit.Assert;
 import org.junit.Test;
@@ -181,13 +180,6 @@ public class SpringAMQPConsumerTest extends CamelTestSupport {
     }
 
     @Override
-    protected JndiRegistry createRegistry() throws Exception {
-        JndiRegistry registry = super.createRegistry();
-        registry.bind("exceptionThrower", new TestExceptionThrower());
-        return registry;
-    }
-
-    @Override
     protected CamelContext createCamelContext() throws Exception {
         ConnectionFactory factory = new TestConnectionFactory();
         RabbitTemplate amqpTemplate = new RabbitTemplate(factory);
@@ -204,6 +196,7 @@ public class SpringAMQPConsumerTest extends CamelTestSupport {
         
         CamelContext camelContext = super.createCamelContext();
         camelContext.addComponent("spring-amqp", amqpComponent);
+        camelContext.getRegistry().bind("exceptionThrower", new TestExceptionThrower());
         return camelContext;
     }
 
