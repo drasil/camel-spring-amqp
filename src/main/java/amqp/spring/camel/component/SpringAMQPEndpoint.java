@@ -266,11 +266,6 @@ public class SpringAMQPEndpoint extends DefaultEndpoint {
     }
 
     @Override
-    public boolean isSingleton() {
-        return false;
-    }
-
-    @Override
     protected String createEndpointUri() {
         StringBuilder builder = new StringBuilder("spring-amqp:").append(this.exchangeName);
         if(this.queueName != null)
