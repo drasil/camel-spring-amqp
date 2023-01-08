@@ -47,6 +47,7 @@ public class SpringAMQPProducerTest extends CamelTestSupport {
     
     @Test
     public void sendAsyncCallbackMessage() throws Exception {
+        // deprecated in Camel 3.10.0 because of threading issues
         context().createProducerTemplate().asyncCallbackSendBody("direct:test.w", "HELLO WORLD", new Synchronization() {
             @Override
             public void onComplete(Exchange exchange) {

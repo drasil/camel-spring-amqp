@@ -78,9 +78,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <org.apache.camel.version>3.7.7</org.apache.camel.version>
+        <org.apache.camel.version>3.11.7</org.apache.camel.version>
         <org.springframework.amqp.version>2.3.16</org.springframework.amqp.version>
-        <!-- Keep this in line with the versions referenced by Camel and Spring-AMQP versions in use (5.3.10 and 5.3.19) -->
+        <!-- Keep this in line with the versions referenced by Camel and Spring-AMQP versions in use (5.3.19 and 5.3.19) -->
         <org.springframework.version>5.3.24</org.springframework.version>
     </properties>
 
@@ -161,6 +161,12 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-spring</artifactId>
+            <version>${org.apache.camel.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-spring-xml</artifactId>
             <version>${org.apache.camel.version}</version>
             <scope>test</scope>
         </dependency>

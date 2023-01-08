@@ -279,6 +279,7 @@ public class SpringAMQPConsumer extends DefaultConsumer implements ConnectionLis
 
         @Override
         public void execute(final Runnable task, long startTimeout) {
+            // deprecated in Spring 5.3.16 because common executors do not support start timeouts
             super.execute(new SpringAMQPExecutorTask(endpoint, task), startTimeout);
         }
     }
