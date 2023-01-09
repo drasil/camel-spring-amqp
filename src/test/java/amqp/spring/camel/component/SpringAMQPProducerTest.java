@@ -46,8 +46,10 @@ public class SpringAMQPProducerTest extends CamelTestSupport {
     }
     
     @Test
+    @SuppressWarnings("deprecation")
     public void sendAsyncCallbackMessage() throws Exception {
-        // deprecated in Camel 3.10.0 because of threading issues
+        // All asyncCallback* methods were deprecated in Camel 3.10.0 because of threading issues
+        // (see CAMEL-16316 for details), but let's keep the test until the method is removed.
         context().createProducerTemplate().asyncCallbackSendBody("direct:test.w", "HELLO WORLD", new Synchronization() {
             @Override
             public void onComplete(Exchange exchange) {
