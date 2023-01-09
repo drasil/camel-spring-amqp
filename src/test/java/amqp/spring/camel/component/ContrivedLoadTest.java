@@ -13,16 +13,16 @@ import javax.annotation.Resource;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Handler;
 import org.apache.camel.ProducerTemplate;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration
 @Component
 public class ContrivedLoadTest {
@@ -57,11 +57,11 @@ public class ContrivedLoadTest {
         int maxPoolSize = this.camelContext.getExecutorServiceManager().getDefaultThreadPoolProfile().getMaxPoolSize();
         LOG.info("Time to receive synchronous messages: {}", elapsedTime);
         
-        Assert.assertEquals(messageCount, received);
+        Assertions.assertEquals(messageCount, received);
         //Assuming 1 second delay per message, elapsed time shouldn't exceed the number of messages sent 
         //divided by the number of messages that can be simultaneously consumed.
-        Assert.assertTrue(String.format("Possible performance issue: %d messages took %f seconds with %d consumers", messageCount, elapsedTime, maxPoolSize),
-                elapsedTime < (messageCount / (double) maxPoolSize) + 1);
+        Assertions.assertTrue(elapsedTime < (messageCount / (double) maxPoolSize) + 1,
+                String.format("Possible performance issue: %d messages took %f seconds with %d consumers", messageCount, elapsedTime, maxPoolSize));
     }
     
     @Test
@@ -87,11 +87,11 @@ public class ContrivedLoadTest {
         int maxPoolSize = this.camelContext.getExecutorServiceManager().getDefaultThreadPoolProfile().getMaxPoolSize();
         LOG.info("Time to receive asynchronous messages: {}", elapsedTime);
         
-        Assert.assertEquals(messageCount, received);
+        Assertions.assertEquals(messageCount, received);
         //Assuming 1 second delay per message, elapsed time shouldn't exceed the number of messages sent 
         //divided by the number of messages that can be simultaneously consumed.
-        Assert.assertTrue(String.format("Possible performance issue: %d messages took %f seconds with %d consumers", messageCount, elapsedTime, maxPoolSize),
-                elapsedTime < (messageCount / (double) maxPoolSize) + 1);
+        Assertions.assertTrue(elapsedTime < (messageCount / (double) maxPoolSize) + 1,
+                String.format("Possible performance issue: %d messages took %f seconds with %d consumers", messageCount, elapsedTime, maxPoolSize));
     }
     
     @Handler

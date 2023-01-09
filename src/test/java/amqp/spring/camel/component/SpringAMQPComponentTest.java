@@ -5,9 +5,9 @@ package amqp.spring.camel.component;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.junit.Assert;
-import org.junit.Test;
+import org.apache.camel.test.junit5.CamelTestSupport;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 
 public class SpringAMQPComponentTest extends CamelTestSupport {
@@ -15,7 +15,7 @@ public class SpringAMQPComponentTest extends CamelTestSupport {
     @Test
     public void testCreateContext() throws Exception {
         Component component = context().getComponent("spring-amqp", SpringAMQPComponent.class);
-        Assert.assertNotNull(component);
+        Assertions.assertNotNull(component);
     }
     
     @Test
@@ -23,7 +23,7 @@ public class SpringAMQPComponentTest extends CamelTestSupport {
         IllegalStateException child = new IllegalStateException("Child Exception");
         RuntimeException parent = new RuntimeException("Parent Exception", child);
         RuntimeException grandparent = new RuntimeException("Grandparent Exception", parent);
-        Assert.assertEquals(child, SpringAMQPComponent.findRootCause(grandparent));
+        Assertions.assertEquals(child, SpringAMQPComponent.findRootCause(grandparent));
     }
     
     @Override

@@ -13,9 +13,9 @@ import org.apache.camel.Producer;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.spi.Synchronization;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.junit.Assert;
-import org.junit.Test;
+import org.apache.camel.test.junit5.CamelTestSupport;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -25,7 +25,7 @@ public class SpringAMQPProducerTest extends CamelTestSupport {
     @Test
     public void testCreateContext() throws Exception {
         Component component = context().getComponent("spring-amqp", SpringAMQPComponent.class);
-        Assert.assertNotNull(component);
+        Assertions.assertNotNull(component);
     }
     
     @Test 
@@ -51,12 +51,12 @@ public class SpringAMQPProducerTest extends CamelTestSupport {
         context().createProducerTemplate().asyncCallbackSendBody("direct:test.w", "HELLO WORLD", new Synchronization() {
             @Override
             public void onComplete(Exchange exchange) {
-                Assert.assertNull(exchange.getException());
+                Assertions.assertNull(exchange.getException());
             }
 
             @Override
             public void onFailure(Exchange exchange) {
-                Assert.fail(exchange.getException() != null ? exchange.getException().getMessage() : "Failure on async callback");
+                Assertions.fail(exchange.getException() != null ? exchange.getException().getMessage() : "Failure on async callback");
             }
         });
     }

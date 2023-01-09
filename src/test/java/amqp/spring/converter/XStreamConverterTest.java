@@ -4,8 +4,8 @@
 package amqp.spring.converter;
 
 import java.io.Serializable;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.support.converter.MessageConverter;
@@ -23,11 +23,11 @@ public class XStreamConverterTest {
         ((XStreamConverter) converter).setEncoding("UTF-8");
         ((XStreamConverter) converter).setAllowedTypes(new String[] {"amqp.spring.converter.XStreamConverterTest$TestObject"});
         Message amqpMessage = converter.toMessage(testObject, messageProperties);
-        Assert.assertEquals("{\"amqp.spring.converter.XStreamConverterTest_-TestObject\":{\"value\":\"TESTING\"}}", new String(amqpMessage.getBody()));
+        Assertions.assertEquals("{\"amqp.spring.converter.XStreamConverterTest_-TestObject\":{\"value\":\"TESTING\"}}", new String(amqpMessage.getBody()));
 
         Object newObject = converter.fromMessage(amqpMessage);
-        Assert.assertEquals(testObject, newObject);
-        Assert.assertEquals("UTF-8", ((XStreamConverter) converter).getEncoding());
+        Assertions.assertEquals(testObject, newObject);
+        Assertions.assertEquals("UTF-8", ((XStreamConverter) converter).getEncoding());
     }
     
     private static class TestObject implements Serializable {

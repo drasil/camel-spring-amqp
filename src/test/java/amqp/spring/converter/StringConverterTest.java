@@ -4,8 +4,8 @@
 package amqp.spring.converter;
 
 import java.io.Serializable;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.support.converter.MessageConverter;
@@ -23,7 +23,7 @@ public class StringConverterTest {
         Message amqpMessage = converter.toMessage(testObject, messageProperties);
         Object newObject = converter.fromMessage(amqpMessage);
         
-        Assert.assertEquals("TESTING", newObject);
+        Assertions.assertEquals("TESTING", newObject);
     }
     
     private static class TestObject implements Serializable {

@@ -8,9 +8,9 @@ import java.util.Map;
 import org.apache.camel.*;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.junit.Assert;
-import org.junit.Test;
+import org.apache.camel.test.junit5.CamelTestSupport;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -22,7 +22,7 @@ public class SpringAMQPConsumerTest extends CamelTestSupport {
     @Test
     public void testCreateContext() throws Exception {
         Component component = context().getComponent("spring-amqp", SpringAMQPComponent.class);
-        Assert.assertNotNull(component);
+        Assertions.assertNotNull(component);
     }
     
     @Test 
@@ -52,12 +52,12 @@ public class SpringAMQPConsumerTest extends CamelTestSupport {
     @Test
     public void testKeyValueParsing() throws Exception {
         Map<String, Object> keyValues = SpringAMQPConsumer.parseKeyValues("cheese=gouda&fromage=jack");
-        Assert.assertEquals("gouda", keyValues.get("cheese"));
-        Assert.assertEquals("jack", keyValues.get("fromage"));
+        Assertions.assertEquals("gouda", keyValues.get("cheese"));
+        Assertions.assertEquals("jack", keyValues.get("fromage"));
 
         keyValues = SpringAMQPConsumer.parseKeyValues("cheese=gouda|fromage=jack");
-        Assert.assertEquals("gouda", keyValues.get("cheese"));
-        Assert.assertEquals("jack", keyValues.get("fromage"));
+        Assertions.assertEquals("gouda", keyValues.get("cheese"));
+        Assertions.assertEquals("jack", keyValues.get("fromage"));
     }
 
     @Test
@@ -68,9 +68,9 @@ public class SpringAMQPConsumerTest extends CamelTestSupport {
         
         mockEndpoint.assertIsSatisfied();
         Message inMessage = mockEndpoint.getExchanges().get(0).getIn();
-        Assert.assertEquals("sendMessage", inMessage.getBody(String.class));
-        Assert.assertEquals("HeaderValue", inMessage.getHeader("HeaderKey"));
-        Assert.assertNotNull(inMessage.getMessageId());
+        Assertions.assertEquals("sendMessage", inMessage.getBody(String.class));
+        Assertions.assertEquals("HeaderValue", inMessage.getHeader("HeaderKey"));
+        Assertions.assertNotNull(inMessage.getMessageId());
     }
     
     @Test
@@ -81,9 +81,9 @@ public class SpringAMQPConsumerTest extends CamelTestSupport {
         
         mockEndpoint.assertIsSatisfied();
         Message inMessage = mockEndpoint.getExchanges().get(0).getIn();
-        Assert.assertEquals("sendMessage", inMessage.getBody(String.class));
-        Assert.assertEquals("HeaderValue", inMessage.getHeader("HeaderKey"));
-        Assert.assertNotNull(inMessage.getMessageId());
+        Assertions.assertEquals("sendMessage", inMessage.getBody(String.class));
+        Assertions.assertEquals("HeaderValue", inMessage.getHeader("HeaderKey"));
+        Assertions.assertNotNull(inMessage.getMessageId());
     }
     
     @Test
@@ -144,15 +144,15 @@ public class SpringAMQPConsumerTest extends CamelTestSupport {
         
         mockEndpoint.assertIsSatisfied();
         Message inMessage = mockEndpoint.getExchanges().get(0).getIn();
-        Assert.assertEquals("sendMessage", inMessage.getBody(String.class));
-        Assert.assertEquals("HeaderValue", inMessage.getHeader("HeaderKey"));
+        Assertions.assertEquals("sendMessage", inMessage.getBody(String.class));
+        Assertions.assertEquals("HeaderValue", inMessage.getHeader("HeaderKey"));
     }
 
     @Test
     public void testHandleException() {
         try {
             Object result = context().createProducerTemplate().requestBody("spring-amqp::test.f", "testBody");
-            Assert.fail("Should have thrown exception up to caller but received object: " + result);
+            Assertions.fail("Should have thrown exception up to caller but received object: " + result);
         } catch (RuntimeException e) {
             // success
         }
@@ -170,12 +170,12 @@ public class SpringAMQPConsumerTest extends CamelTestSupport {
         mockEndpoint.assertIsSatisfied();
 
         Message inMessage1 = mockEndpoint.getExchanges().get(0).getIn();
-        Assert.assertEquals("sendMessage1", inMessage1.getBody(String.class));
-        Assert.assertEquals("HeaderValue", inMessage1.getHeader("HeaderKey"));
+        Assertions.assertEquals("sendMessage1", inMessage1.getBody(String.class));
+        Assertions.assertEquals("HeaderValue", inMessage1.getHeader("HeaderKey"));
 
         Message inMessage2 = mockEndpoint.getExchanges().get(1).getIn();
-        Assert.assertEquals("sendMessage2", inMessage2.getBody(String.class));
-        Assert.assertEquals("HeaderValue", inMessage2.getHeader("HeaderKey"));
+        Assertions.assertEquals("sendMessage2", inMessage2.getBody(String.class));
+        Assertions.assertEquals("HeaderValue", inMessage2.getHeader("HeaderKey"));
 
     }
 

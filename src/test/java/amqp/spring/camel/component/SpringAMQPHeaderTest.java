@@ -7,8 +7,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.support.DefaultExchange;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 
@@ -23,10 +23,10 @@ public class SpringAMQPHeaderTest {
         message.getMessageProperties().setCorrelationId("corrId");
         
         SpringAMQPMessage camelMessage = SpringAMQPHeader.setBasicPropertiesToHeaders(new SpringAMQPMessage(new DefaultCamelContext()), message);
-        Assert.assertNull(camelMessage.getHeader("NotSecret"));
-        Assert.assertEquals(1, camelMessage.getHeader(SpringAMQPHeader.PRIORITY));
-        Assert.assertEquals("BuzzSaw", camelMessage.getHeader(SpringAMQPHeader.REPLY_TO));
-        Assert.assertEquals("corrId", camelMessage.getHeader(SpringAMQPHeader.CORRELATION_ID));
+        Assertions.assertNull(camelMessage.getHeader("NotSecret"));
+        Assertions.assertEquals(1, camelMessage.getHeader(SpringAMQPHeader.PRIORITY));
+        Assertions.assertEquals("BuzzSaw", camelMessage.getHeader(SpringAMQPHeader.REPLY_TO));
+        Assertions.assertEquals("corrId", camelMessage.getHeader(SpringAMQPHeader.CORRELATION_ID));
     }
     
     @Test
@@ -44,10 +44,10 @@ public class SpringAMQPHeaderTest {
         
         Message message = new Message(new byte[]{}, new MessageProperties());
         message = SpringAMQPHeader.setBasicPropertiesFromHeaders(message, camelMessage.getHeaders());
-        Assert.assertNull(message.getMessageProperties().getHeaders().get("Secret"));
-        Assert.assertEquals(Integer.valueOf(1), message.getMessageProperties().getPriority());
-        Assert.assertEquals("BuzzSaw", message.getMessageProperties().getReplyTo());
-        Assert.assertEquals("corrId", message.getMessageProperties().getCorrelationId());
+        Assertions.assertNull(message.getMessageProperties().getHeaders().get("Secret"));
+        Assertions.assertEquals(Integer.valueOf(1), message.getMessageProperties().getPriority());
+        Assertions.assertEquals("BuzzSaw", message.getMessageProperties().getReplyTo());
+        Assertions.assertEquals("corrId", message.getMessageProperties().getCorrelationId());
     }
     
     @Test
@@ -58,8 +58,8 @@ public class SpringAMQPHeaderTest {
         message.getMessageProperties().setReplyTo("BuzzSaw");
         
         SpringAMQPMessage camelMessage = SpringAMQPHeader.copyHeaders(new SpringAMQPMessage(new DefaultCamelContext()), message.getMessageProperties().getHeaders());
-        Assert.assertEquals("Popcorn", camelMessage.getHeader("NotSecret"));
-        Assert.assertNull(camelMessage.getHeader(SpringAMQPHeader.REPLY_TO));
+        Assertions.assertEquals("Popcorn", camelMessage.getHeader("NotSecret"));
+        Assertions.assertNull(camelMessage.getHeader(SpringAMQPHeader.REPLY_TO));
     }
     
     @Test
@@ -74,7 +74,7 @@ public class SpringAMQPHeaderTest {
         
         Message message = new Message(new byte[]{}, new MessageProperties());
         message = SpringAMQPHeader.copyHeaders(message, camelMessage.getHeaders());
-        Assert.assertEquals("My Secret", message.getMessageProperties().getHeaders().get("Secret"));
-        Assert.assertNull(message.getMessageProperties().getReplyTo());
+        Assertions.assertEquals("My Secret", message.getMessageProperties().getHeaders().get("Secret"));
+        Assertions.assertNull(message.getMessageProperties().getReplyTo());
     }
 }

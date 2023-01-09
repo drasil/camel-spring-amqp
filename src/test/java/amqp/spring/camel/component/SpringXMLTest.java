@@ -11,15 +11,15 @@ import org.apache.camel.EndpointInject;
 import org.apache.camel.Handler;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration
 @Component
 public class SpringXMLTest {
@@ -27,12 +27,12 @@ public class SpringXMLTest {
     protected ProducerTemplate template;
     @Resource
     protected CamelContext camelContext;
-    @EndpointInject(uri = "mock:testOne")
+    @EndpointInject(value = "mock:testOne")
     protected MockEndpoint testOne;
-    @EndpointInject(uri = "mock:testTwo")
+    @EndpointInject(value = "mock:testTwo")
     protected MockEndpoint testTwo;
     
-    @Before
+    @BeforeEach
     public void resetEndpoints() throws Exception {
         testOne.reset();
         testTwo.reset();
@@ -62,7 +62,7 @@ public class SpringXMLTest {
     @Test
     public void testRequestReply() throws Exception {
         String response = template.requestBody("direct:stepThree", "REQUEST", String.class);
-        Assert.assertEquals("RESPONSE", response);
+        Assertions.assertEquals("RESPONSE", response);
     }
     
     @Handler

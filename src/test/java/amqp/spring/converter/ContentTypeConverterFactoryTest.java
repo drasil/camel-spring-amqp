@@ -4,8 +4,8 @@
 package amqp.spring.converter;
 
 import java.io.Serializable;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 
@@ -28,10 +28,10 @@ public class ContentTypeConverterFactoryTest {
         messageProperties.setContentType("application/xml");
         
         Message amqpMessage = converter.toMessage(testObject, messageProperties);
-        Assert.assertEquals("TESTING", new String(amqpMessage.getBody()));
+        Assertions.assertEquals("TESTING", new String(amqpMessage.getBody()));
         
         Object newObject = converter.fromMessage(amqpMessage);
-        Assert.assertEquals("TESTING", newObject);
+        Assertions.assertEquals("TESTING", newObject);
     }
     
     @Test
@@ -54,10 +54,10 @@ public class ContentTypeConverterFactoryTest {
         messageProperties.setContentType("application/json");
         
         Message amqpMessage = converter.toMessage(testObject, messageProperties);
-        Assert.assertEquals("{\"amqp.spring.converter.ContentTypeConverterFactoryTest_-TestObject\":{\"value\":\"TESTING\"}}", new String(amqpMessage.getBody()));
+        Assertions.assertEquals("{\"amqp.spring.converter.ContentTypeConverterFactoryTest_-TestObject\":{\"value\":\"TESTING\"}}", new String(amqpMessage.getBody()));
         
         Object newObject = converter.fromMessage(amqpMessage);
-        Assert.assertEquals(testObject, newObject);
+        Assertions.assertEquals(testObject, newObject);
     }
     
     private static class TestObject implements Serializable {
