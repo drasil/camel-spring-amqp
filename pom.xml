@@ -78,9 +78,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <org.apache.camel.version>3.14.7</org.apache.camel.version>
-        <org.springframework.amqp.version>2.4.8</org.springframework.amqp.version>
-        <!-- Keep this in line with the versions referenced by Camel and Spring-AMQP versions in use (5.3.23 and 5.3.24) -->
+        <org.apache.camel.version>3.14.10</org.apache.camel.version>
+        <org.springframework.amqp.version>2.4.17</org.springframework.amqp.version>
+        <!-- Keep this in line with the versions referenced by Camel and Spring-AMQP versions in use (5.3.27 and 5.3.30) -->
         <org.springframework.version>5.3.31</org.springframework.version>
     </properties>
 
@@ -141,7 +141,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.11</version>
+            <version>1.2.13</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -173,7 +173,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.14.1</version>
+            <version>2.14.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
