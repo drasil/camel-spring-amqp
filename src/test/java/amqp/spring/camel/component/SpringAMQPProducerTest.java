@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.AllowedListDeserializingMessageConverter;
 
 public class SpringAMQPProducerTest extends CamelTestSupport {
     
@@ -98,6 +99,8 @@ public class SpringAMQPProducerTest extends CamelTestSupport {
     protected CamelContext createCamelContext() throws Exception {
         ConnectionFactory factory = new TestConnectionFactory();
         RabbitTemplate amqpTemplate = new RabbitTemplate(factory);
+        ((AllowedListDeserializingMessageConverter)amqpTemplate.getMessageConverter())
+                .addAllowedListPatterns("amqp.spring.camel.component.SpringAMQPProducerTest$ProducerTestObject");
         SpringAMQPComponent amqpComponent = new SpringAMQPComponent(factory);
         
         Map<String, AmqpTemplate> templateMap = new HashMap<>(1);
